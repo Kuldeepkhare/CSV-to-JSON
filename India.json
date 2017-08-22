@@ -1,5 +1,5 @@
-{
-   "INDIA": {
+[
+   {
       "TotalMales": 623270258,
       "LiterateMale": 434763622,
       "IlliterateMale": 188506636,
@@ -7,4 +7,4 @@
       "LiterateFemale": 328875190,
       "IlliterateFemale": 258709529
    }
-}
+]
