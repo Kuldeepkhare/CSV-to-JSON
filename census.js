@@ -6,11 +6,10 @@ let myWriteStream2 = fs.createWriteStream('StateWise.json')//writestream for thi
 const lineReader = readline.createInterface({
     input: fs.createReadStream('India2011.csv','utf-8')
 });
-let states=[],lit_person=[],illit_person=[],index=[];
-for(let j=1;j<=35;j++)
-    states[j-1]=j;//assigning codes to states array
-let sevenstates=states.filter((s)=>(s==12||s==13||s==14||s==15||s==16||s==17||s==18));//creates an array containing seven states using filter
-let i,count=0,lit_male1=0,lit_female1=0,illit_female1=0,illit_male1=0,tot_male1=0,tot_female1=0,lit_male2=0,lit_female2=0,illit_female2=0,illit_male2=0;
+let i,c1=0,c=0,count=0,lit_male1=0,lit_female1=0,illit_female1=0,illit_male1=0,tot_male1=0,tot_female1=0,lit_male2=0,lit_female2=0,illit_female2=0,illit_male2=0;
+let lit_person=[],illit_person=[],index=[];
+let sevenstates=new Array(35).fill(0).map((i)=>((c1++)+1))
+.filter((s)=>(s==12||s==13||s==14||s==15||s==16||s==17||s==18));//an array of seven states using filter;
 let census={},census1={},census2={};//creating empty objects
 lineReader.on('line', (line) => {//reading data
     count++;
@@ -56,14 +55,14 @@ lineReader.on('close', ()=>{
                  "LiterateFemale" : lit_female2,
                  "IlliterateFemale" : illit_female2
                            })
-    for(i in index)// iterating for each state in index array
-    {
-        census2[index[i]]=[];
-      	census2[index[i]].push({//pushing properties for each state's object(census2)
-                 "LiteratePersons" : parseInt(lit_person[i]),
-                 "IlliteratePersons" : parseInt(illit_person[i]),
-                           })
-    }
+    index.map((i)=>{//iterating for each state in index array using map
+    							c++;
+    	        		census2[i]=[];
+      						census2[i].push({//pushing properties for each state's object(census2)
+                 	"LiteratePersons" : parseInt(lit_person[c-1]),
+                 	"IlliteratePersons" : parseInt(illit_person[c-1]),
+    			})
+      		});
     myWriteStream.write(JSON.stringify(census,null,3));//writing contents of census object into myWriteStream object(India json file is being written)
     myWriteStream1.write(JSON.stringify(census1,null,3));//writing contents of census1 object into myWriteStream1 object(SevenSisters json file is being written)
     myWriteStream2.write(JSON.stringify(census2,null,3));//writing contents of census2 object into myWriteStream2 object(statewise json file is being written)
