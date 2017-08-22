@@ -1,12 +1,10 @@
 {
-   "India": [
-      {
-         "TotalMales": 623270258,
-         "LiterateMale": 434763622,
-         "IlliterateMale": 188506636,
-         "TotalFemales": 587584719,
-         "LiterateFemale": 328875190,
-         "IlliterateFemale": 258709529
-      }
-   ]
+   "INDIA": {
+      "TotalMales": 623270258,
+      "LiterateMale": 434763622,
+      "IlliterateMale": 188506636,
+      "TotalFemales": 587584719,
+      "LiterateFemale": 328875190,
+      "IlliterateFemale": 258709529
+   }
 }

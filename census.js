@@ -39,29 +39,27 @@ lineReader.on('line', (line) => {//reading data
 	}
 });
 lineReader.on('close', ()=>{
-    census['India']=[];
-    census['India'].push({//pushing properties for India object(census) 
+    census.INDIA={//pushing properties for India object(census) 
                  "TotalMales" : tot_male1,
                  "LiterateMale" : lit_male1,
                  "IlliterateMale" : illit_male1,
                  "TotalFemales" : tot_female1,
                  "LiterateFemale" : lit_female1,
                  "IlliterateFemale" : illit_female1
-                           })
-    census1['SevenSisters']=[];
-    census1['SevenSisters'].push({//pushing properties for SevenSisters object(census1)
+                           };
+    //census1['SevenSisters']=[];
+    census1.SevenSisters={//pushing properties for SevenSisters object(census1)
                  "LiterateMale" : lit_male2,
                  "IlliterateMale" : illit_male2,
                  "LiterateFemale" : lit_female2,
                  "IlliterateFemale" : illit_female2
-                           })
+                           }
     index.map((i)=>{//iterating for each state in index array using map
     							c++;
-    	        		census2[i]=[];
-      						census2[i].push({//pushing properties for each state's object(census2)
+      						census2[i]={//pushing properties for each state's object(census2)
                  	"LiteratePersons" : parseInt(lit_person[c-1]),
-                 	"IlliteratePersons" : parseInt(illit_person[c-1]),
-    			})
+                 	"IlliteratePersons" : parseInt(illit_person[c-1])
+    											}
       		});
     myWriteStream.write(JSON.stringify(census,null,3));//writing contents of census object into myWriteStream object(India json file is being written)
     myWriteStream1.write(JSON.stringify(census1,null,3));//writing contents of census1 object into myWriteStream1 object(SevenSisters json file is being written)
