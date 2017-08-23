@@ -15,8 +15,7 @@ lineReader.on('line', (line) => {			//reading data
     count++;
     if(count!=1)		//ignoring the first line, as it contains only heading
     {
-    		line.split('\n')
-    		let arr = line.split(',');		//creating an array of data, splitting on basis of comma
+    	let arr = line.split(',');		//creating an array of data, splitting on basis of comma
         if(arr[4]=="Total"&&arr[5]=="All ages")		//checking for the aggregate value in the columns
         {
             if(sevenstates.includes(parseInt(arr[1])))		//if state is among seven sisters
@@ -30,11 +29,11 @@ lineReader.on('line', (line) => {			//reading data
             lit_female1+=parseInt(arr[14]);		//evaluating total literate females in india
             illit_male1+=parseInt(arr[10]);		//evaluating total illiterate males in india
             illit_female1+=parseInt(arr[11]);		//evaluating total illiterate females in india
-						tot_male1+=parseInt(arr[7]);		//evaluating total males in india
-						tot_female1+=parseInt(arr[8]);		//evaluating total females in india
+			tot_male1+=parseInt(arr[7]);		//evaluating total males in india
+			tot_female1+=parseInt(arr[8]);		//evaluating total females in india
             index.push(arr[3]);		//pushing each state in index array
-						lit_person.push(arr[12]);		//pushing literate person in each state
-						illit_person.push(arr[9]);		//pushing literate person in each state
+			lit_person.push(arr[12]);		//pushing literate person in each state
+			illit_person.push(arr[9]);		//pushing literate person in each state
         }
 	}
 });
@@ -58,12 +57,12 @@ lineReader.on('close', ()=>{
     	{"category": "Literate","values" : values2.map((i)=>i)},
     	{"category": "Illiterate","values" : values3.map((i)=>i)})    
     index.map((i)=>{		//iterating for each state in index array using map
-    							c++;
-      						census2.push({		//pushing properties for each state's object(census2)
+    				c++;
+      				census2.push({		//pushing properties for each state's object(census2)
                  	"StateName" : i,
                  	"LiteratePersons" : parseInt(lit_person[c-1]),
                  	"IlliteratePersons" : parseInt(illit_person[c-1])
-    											});
+    							});
       		});
     myWriteStream.write(JSON.stringify(census,null,3));		//writing contents of census object into myWriteStream object(India json file is being written)
     myWriteStream1.write(JSON.stringify(census1,null,3));		//writing contents of census1 object into myWriteStream1 object(SevenSisters json file is being written)
