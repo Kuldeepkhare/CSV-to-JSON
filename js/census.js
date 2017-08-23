@@ -1,13 +1,13 @@
 const readline = require('readline')
 const fs = require('fs')
-let myWriteStream = fs.createWriteStream('India.json')	//writestream for first json
-let myWriteStream1 = fs.createWriteStream('Seven.json')	//writestream for second json
-let myWriteStream2 = fs.createWriteStream('StateWise.json')//writestream for third json
+let myWriteStream = fs.createWriteStream('../json/India.json')	//writestream for first json
+let myWriteStream1 = fs.createWriteStream('../json/Seven.json')	//writestream for second json
+let myWriteStream2 = fs.createWriteStream('../json/StateWise.json')//writestream for third json
 const lineReader = readline.createInterface({
-    input: fs.createReadStream('India2011.csv','utf-8')
+    input: fs.createReadStream('../csv/India2011.csv','utf-8')
 });
 let i,c1=0,c=0,count=0,lit_male1=0,lit_female1=0,illit_female1=0,illit_male1=0,tot_male1=0,tot_female1=0,lit_male2=0,lit_female2=0,illit_female2=0,illit_male2=0;
-let lit_person=[],illit_person=[],index=[];
+let lit_person=[],illit_person=[],index=[],values=[],values1=[],values2=[],values3=[];
 let sevenstates=new Array(35).fill(0).map((i)=>((c1++)+1))
 .filter((s)=>(s==12||s==13||s==14||s==15||s==16||s==17||s==18));//an array of seven states using filter;
 let census=[],census1=[],census2=[];	//creating empty objects
@@ -21,7 +21,7 @@ lineReader.on('line', (line) => {			//reading data
         {
             if(sevenstates.includes(parseInt(arr[1])))		//if state is among seven sisters
             {
-                lit_male2+=parseInt(arr[13]);		//evaluating total literate males
+                lit_male2+=parseInt(arr[13]);		//evaluating total literate males in seven states
                 lit_female2+=parseInt(arr[14]);		//evaluating total literate females
                 illit_male2+=parseInt(arr[10]);		//evaluating total illiterate males
                 illit_female2+=parseInt(arr[11]);		//evaluating total illiterate females
@@ -39,20 +39,24 @@ lineReader.on('line', (line) => {			//reading data
 	}
 });
 lineReader.on('close', ()=>{
-    census.push({		//pushing properties for India object(census) 
-                 "TotalMales" : tot_male1,
-                 "LiterateMale" : lit_male1,
-                 "IlliterateMale" : illit_male1,
-                 "TotalFemales" : tot_female1,
-                 "LiterateFemale" : lit_female1,
-                 "IlliterateFemale" : illit_female1
-                           });
-    census1.push({		//pushing properties for SevenSisters object(census1)
-                 "LiterateMale" : lit_male2,
-                 "IlliterateMale" : illit_male2,
-                 "LiterateFemale" : lit_female2,
-                 "IlliterateFemale" : illit_female2
-                           });
+    values.push(
+    	{"value" : lit_male1,"sex" : "Male"},
+    	{"value" : lit_female1,"sex" : "Female"})
+    values1.push(
+    	{"value" : illit_male1,"sex" : "Male"},
+    	{"value" : illit_female1,"sex" : "Female"})
+    census.push(
+    	{"category": "Literate","values" : values.map((i)=>i)},
+    	{"category": "Illiterate","values" : values1.map((i)=>i)})
+    values2.push(
+    	{"value" : lit_male2,"sex" : "Male"},
+    	{"value" : lit_female2,"sex" : "Female"})
+    values3.push(
+    	{"value" : illit_male2,"sex" : "Male"},
+    	{"value" : illit_female2,"sex" : "Female"})
+    census1.push(
+    	{"category": "Literate","values" : values2.map((i)=>i)},
+    	{"category": "Illiterate","values" : values3.map((i)=>i)})    
     index.map((i)=>{		//iterating for each state in index array using map
     							c++;
       						census2.push({		//pushing properties for each state's object(census2)
